@@ -19,11 +19,25 @@ pip install -r requirements.txt
 ```
 
 
-### MobileViTv3\-S,XS,XXS
-Download [MobileViTv1](https://github.com/apple/ml-cvnets/tree/d38a116fe134a8cd5db18670764fdaafd39a5d4f) and replace the files provided in [MobileViTv3-v1](MobileViTv3-v1).
-Conda environment used for training: [environment_cvnet.yml](MobileViTv3-v1).
-Then install according to instructions provided in the downloaded repository.
-For training, use `training-and-evaluation readme` provided in the downloaded repository.
+### MobileViTv3\-S,XS,XXS - easy of use!
+Download the trained MobileViTv3 models from [here](https://github.com/micronDLA/MobileViTv3/releases/tag/v1.0.0) and save model as pt.
+```bash
+# Save model as pt
+cd MobileViTv3-v1
+python save_model.py --common.config-file ../models/MobileViTv3-v1/results_classification/mobilevitv3_S_e300_7930/config.yaml (config path)
+```
+Get structure model into PyTorch.
+```python
+import torch
+
+device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
+
+model_path = '../models/MobileViTv3-v1/results_classification/mobilevitv3_S_e300_7930/checkpoint_ema_best.pt'
+model = torch.load(''model_structure.pt'')
+model.load_state_dict(model_path, map_location=device)
+
+output = model(image)
+```
 
 
 ### MobileViTv3\-1.0,0.75,0.5
