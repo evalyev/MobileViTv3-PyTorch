@@ -1,9 +1,6 @@
 # MobileViTv3-PyTorch : 
-This repository helps get the mobileViTv3 model into PyTorch. <br>
+This repository helps get the mobileViTv3 model into PyTorch. It uses the [CVNets](https://arxiv.org/pdf/2206.02002.pdf) library and MobileViTv3 repository ([code](https://github.com/micronDLA/MobileViTv3)). <br>
 <b>MobileViTv3: Mobile-Friendly Vision Transformer with Simple and Effective Fusion of Local, Global and Input Features [[arXiv](https://arxiv.org/abs/2209.15159)]</b>
-
-This repository contains MobileViTv3's source code for training and evaluation.
-It uses the [CVNets](https://arxiv.org/pdf/2206.02002.pdf) library and MobileViTv3 repository ([code](https://github.com/micronDLA/MobileViTv3)).
 
 ## Installation:
 We recommend to use Python 3.8+ and [PyTorch](https://pytorch.org) (version >= v1.8.0) with `conda` environment.
