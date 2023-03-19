@@ -5,9 +5,18 @@ This repository helps get the mobileViTv3 model into PyTorch. <br>
 This repository contains MobileViTv3's source code for training and evaluation.
 It uses the [CVNets](https://arxiv.org/pdf/2206.02002.pdf) library and MobileViTv3 repository ([code](https://github.com/micronDLA/MobileViTv3)).
 
-## Installation and Training Models:
+## Installation:
 We recommend to use Python 3.8+ and [PyTorch](https://pytorch.org) (version >= v1.8.0) with `conda` environment.
 For setting-up the python environment with conda, see [here](https://conda.io/projects/conda/en/latest/user-guide/tasks/manage-environments.html).
+
+```bash
+# Clone the repo
+git clone https://github.com/evalyev/MobileViTv3-PyTorch.git
+cd MobileViTv3-PyTorch
+
+# install requirements
+pip install -r requirements.txt
+```
 
 
 ### MobileViTv3\-S,XS,XXS
