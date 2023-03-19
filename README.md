@@ -3,8 +3,7 @@ This repository helps get the MobileViTv3 model into PyTorch. It uses the [CVNet
 <b>MobileViTv3: Mobile-Friendly Vision Transformer with Simple and Effective Fusion of Local, Global and Input Features [[arXiv](https://arxiv.org/abs/2209.15159)]</b>
 
 ## Installation:
-We recommend to use Python 3.8+ and [PyTorch](https://pytorch.org) (version >= v1.8.0) with `conda` environment.
-For setting-up the python environment with conda, see [here](https://conda.io/projects/conda/en/latest/user-guide/tasks/manage-environments.html).
+We recommend to use Python 3.8+ and [PyTorch](https://pytorch.org) (version >= v1.8.0).
 
 ```bash
 # Clone the repo
