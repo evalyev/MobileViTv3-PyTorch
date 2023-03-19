@@ -16,7 +16,7 @@ pip install -r requirements.txt
 
 
 ### MobileViTv3\-S,XS,XXS - easy of use!
-Download the trained MobileViTv3 models from [here](https://github.com/micronDLA/MobileViTv3/releases/tag/v1.0.0) and save model as pt.
+Download the trained MobileViTv3 models from [here](https://github.com/micronDLA/MobileViTv3/releases/tag/v1.0.0) and save model as pt with bash code.
 ```bash
 # Save model as pt
 cd MobileViTv3-v1
