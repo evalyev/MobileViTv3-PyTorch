@@ -41,10 +41,7 @@ output = model(image)
 
 
 ### MobileViTv3\-1.0,0.75,0.5
-Download [MobileViTv2](https://github.com/apple/ml-cvnets/tree/84d992f413e52c0468f86d23196efd9dad885e6f) and replace the files provided in [MobileViTv3-v2](MobileViTv3-v2).
-Conda environment used for training: [environment_mbvt2.yml](MobileViTv3-v2)
-Then install according to instructions provided in the downloaded repository.
-For training, use `training-and-evaluation readme` provided in the downloaded repository.
+To be supplemented
 
 
 ## Trained models:
