@@ -26,7 +26,7 @@ Download the trained MobileViTv3 models from [here](https://github.com/micronDLA
 cd MobileViTv3-v1
 python save_model.py --common.config-file ../models/MobileViTv3-v1/results_classification/mobilevitv3_S_e300_7930/config.yaml (config path)
 ```
-Get structure model into PyTorch.
+Get model with pretrained weights into PyTorch.
 ```python
 import torch
 
