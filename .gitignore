@@ -8,6 +8,7 @@ results*
 .idea
 *.pt
 *.pth
+.env
 
 results*
 vision_datasets/
@@ -19,6 +20,7 @@ coco_eval_results/
 *.so
 model_zoo
 model_zoo/*
+models*
 
 cvnets.egg-info
 cvnets.egg-info/*
