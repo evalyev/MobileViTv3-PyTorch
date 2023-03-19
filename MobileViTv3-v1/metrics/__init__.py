@@ -7,13 +7,17 @@ import os
 import importlib
 import argparse
 
+# from metrics.stats import Statistics
+# from metrics.metric_monitor import metric_monitor
+
 SUPPORTED_STATS = ["loss", "grad_norm"]
 
 
 def register_stats_fn(name):
     def register_fn(fn):
         if name in SUPPORTED_STATS:
-            raise ValueError("Cannot register duplicate state ({})".format(name))
+            raise ValueError(
+                "Cannot register duplicate state ({})".format(name))
         SUPPORTED_STATS.append(name)
         return fn
 
@@ -21,7 +25,8 @@ def register_stats_fn(name):
 
 
 def arguments_stats(parser: argparse.ArgumentParser):
-    group = parser.add_argument_group(title="Statistics", description="Statistics")
+    group = parser.add_argument_group(
+        title="Statistics", description="Statistics")
     group.add_argument(
         "--stats.val", type=str, default=["loss"], nargs="+", help="Name of statistics"
     )
@@ -66,8 +71,4 @@ for file in os.listdir(metrics_dir):
         and (file.endswith(".py") or os.path.isdir(path))
     ):
         model_name = file[: file.find(".py")] if file.endswith(".py") else file
-        module = importlib.import_module("metrics." + model_name)
-
-
-from metrics.stats import Statistics
-from metrics.metric_monitor import metric_monitor
+        # module = importlib.import_module("metrics." + model_name)

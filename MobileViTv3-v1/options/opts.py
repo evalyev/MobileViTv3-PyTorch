@@ -60,7 +60,8 @@ class ParseKwargs(argparse.Action):
                 elif option.nargs in ["+", "*"]:
                     # for list, we expect value to be comma separated
                     val_list = val.split(",")
-                    override_dict[option_dest] = [option.type(v) for v in val_list]
+                    override_dict[option_dest] = [
+                        option.type(v) for v in val_list]
                 else:
                     logger.error(
                         "Following option is not yet supported for overriding. Please specify in config file. Got: {}".format(
@@ -75,7 +76,8 @@ def arguments_common(parser: argparse.ArgumentParser) -> argparse.ArgumentParser
         title="Common arguments", description="Common arguments"
     )
 
-    group.add_argument("--common.seed", type=int, default=0, help="Random seed")
+    group.add_argument("--common.seed", type=int,
+                       default=0, help="Random seed")
     group.add_argument(
         "--common.config-file", type=str, default=None, help="Configuration file"
     )
@@ -226,21 +228,24 @@ def arguments_ddp(parser: argparse.ArgumentParser) -> argparse.ArgumentParser:
     group = parser.add_argument_group(
         title="DDP arguments", description="DDP arguments"
     )
-    group.add_argument("--ddp.disable", action="store_true", help="Don't use DDP")
+    group.add_argument("--ddp.disable", action="store_true",
+                       help="Don't use DDP")
     group.add_argument(
         "--ddp.rank", type=int, default=0, help="Node rank for distributed training"
     )
     group.add_argument(
         "--ddp.world-size", type=int, default=-1, help="World size for DDP"
     )
-    group.add_argument("--ddp.dist-url", type=str, default=None, help="DDP URL")
+    group.add_argument("--ddp.dist-url", type=str,
+                       default=None, help="DDP URL")
     group.add_argument(
         "--ddp.dist-port",
         type=int,
         default=30786,
         help="DDP Port. Only used when --ddp.dist-url is not specified",
     )
-    group.add_argument("--ddp.device-id", type=int, default=None, help="Device ID")
+    group.add_argument("--ddp.device-id", type=int,
+                       default=None, help="Device ID")
     group.add_argument(
         "--ddp.no-spawn", action="store_true", help="Don't use DDP with spawn"
     )
@@ -264,7 +269,8 @@ def parser_to_opts(parser: argparse.ArgumentParser):
 
 
 def get_training_arguments(parse_args: Optional[bool] = True):
-    parser = argparse.ArgumentParser(description="Training arguments", add_help=True)
+    parser = argparse.ArgumentParser(
+        description="Training arguments", add_help=True)
 
     # cvnet arguments, including models
     parser = modeling_arguments(parser=parser)
@@ -381,7 +387,8 @@ def get_bencmarking_arguments():
 def get_segmentation_eval_arguments():
     parser = get_training_arguments(parse_args=False)
 
-    group = parser.add_argument_group("Segmentation evaluation related arguments")
+    group = parser.add_argument_group(
+        "Segmentation evaluation related arguments")
     group.add_argument(
         "--evaluation.segmentation.apply-color-map",
         action="store_true",

@@ -21,7 +21,8 @@ def register_tokenizer(name):
     def register_tokenizer_class(cls):
         if name in TOKENIZER_REGISTRY:
             raise ValueError(
-                "Cannot register duplicate text_tokenizer class ({})".format(name)
+                "Cannot register duplicate text_tokenizer class ({})".format(
+                    name)
             )
 
         if not issubclass(cls, BaseTokenizer):
@@ -87,5 +88,6 @@ for file in os.listdir(tokenizer_dir):
         and not file.startswith(".")
         and (file.endswith(".py") or os.path.isdir(path))
     ):
-        tokenizer_name = file[: file.find(".py")] if file.endswith(".py") else file
-        module = importlib.import_module("data.text_tokenizer." + tokenizer_name)
+        tokenizer_name = file[: file.find(
+            ".py")] if file.endswith(".py") else file
+        # module = importlib.import_module("data.text_tokenizer." + tokenizer_name)

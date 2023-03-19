@@ -20,9 +20,11 @@ class MobileViTv3(BaseEncoder):
     """
         MobileViTv3:
     """
+
     def __init__(self, opts, *args, **kwargs) -> None:
         num_classes = getattr(opts, "model.classification.n_classes", 1000)
-        classifier_dropout = getattr(opts, "model.classification.classifier_dropout", 0.2)
+        classifier_dropout = getattr(
+            opts, "model.classification.classifier_dropout", 0.2)
 
         pool_type = getattr(opts, "model.layer.global_pool", "mean")
         image_channels = 3
@@ -40,64 +42,75 @@ class MobileViTv3(BaseEncoder):
         elif output_stride == 16:
             dilate_l5 = True
 
-        super(MobileViTv3, self).__init__()
+        super(MobileViTv3, self).__init__(opts)
         self.dilation = 1
 
         # store model configuration in a dictionary
         self.model_conf_dict = dict()
         self.conv_1 = ConvLayer(
-                opts=opts, in_channels=image_channels, out_channels=out_channels,
-                kernel_size=3, stride=2, use_norm=True, use_act=True
-            )
+            opts=opts, in_channels=image_channels, out_channels=out_channels,
+            kernel_size=3, stride=2, use_norm=True, use_act=True
+        )
 
-        self.model_conf_dict['conv1'] = {'in': image_channels, 'out': out_channels}
+        self.model_conf_dict['conv1'] = {
+            'in': image_channels, 'out': out_channels}
 
         in_channels = out_channels
         self.layer_1, out_channels = self._make_layer(
             opts=opts, input_channel=in_channels, cfg=mobilevit_config["layer1"]
         )
-        self.model_conf_dict['layer1'] = {'in': in_channels, 'out': out_channels}
+        self.model_conf_dict['layer1'] = {
+            'in': in_channels, 'out': out_channels}
 
         in_channels = out_channels
         self.layer_2, out_channels = self._make_layer(
             opts=opts, input_channel=in_channels, cfg=mobilevit_config["layer2"]
         )
-        self.model_conf_dict['layer2'] = {'in': in_channels, 'out': out_channels}
+        self.model_conf_dict['layer2'] = {
+            'in': in_channels, 'out': out_channels}
 
         in_channels = out_channels
         self.layer_3, out_channels = self._make_layer(
             opts=opts, input_channel=in_channels, cfg=mobilevit_config["layer3"]
         )
-        self.model_conf_dict['layer3'] = {'in': in_channels, 'out': out_channels}
+        self.model_conf_dict['layer3'] = {
+            'in': in_channels, 'out': out_channels}
 
         in_channels = out_channels
         self.layer_4, out_channels = self._make_layer(
             opts=opts, input_channel=in_channels, cfg=mobilevit_config["layer4"], dilate=dilate_l4
         )
-        self.model_conf_dict['layer4'] = {'in': in_channels, 'out': out_channels}
+        self.model_conf_dict['layer4'] = {
+            'in': in_channels, 'out': out_channels}
 
         in_channels = out_channels
         self.layer_5, out_channels = self._make_layer(
             opts=opts, input_channel=in_channels, cfg=mobilevit_config["layer5"], dilate=dilate_l5
         )
-        self.model_conf_dict['layer5'] = {'in': in_channels, 'out': out_channels}
+        self.model_conf_dict['layer5'] = {
+            'in': in_channels, 'out': out_channels}
 
         in_channels = out_channels
-        exp_channels = min(mobilevit_config["last_layer_exp_factor"] * in_channels, 960)
+        exp_channels = min(
+            mobilevit_config["last_layer_exp_factor"] * in_channels, 960)
         self.conv_1x1_exp = ConvLayer(
-                opts=opts, in_channels=in_channels, out_channels=exp_channels,
-                kernel_size=1, stride=1, use_act=True, use_norm=True
-            )
+            opts=opts, in_channels=in_channels, out_channels=exp_channels,
+            kernel_size=1, stride=1, use_act=True, use_norm=True
+        )
 
-        self.model_conf_dict['exp_before_cls'] = {'in': in_channels, 'out': exp_channels}
+        self.model_conf_dict['exp_before_cls'] = {
+            'in': in_channels, 'out': exp_channels}
 
         self.classifier = nn.Sequential()
-        self.classifier.add_module(name="global_pool", module=GlobalPool(pool_type=pool_type, keep_dim=False))
+        self.classifier.add_module(name="global_pool", module=GlobalPool(
+            pool_type=pool_type, keep_dim=False))
         if 0.0 < classifier_dropout < 1.0:
-            self.classifier.add_module(name="dropout", module=Dropout(p=classifier_dropout, inplace=True))
+            self.classifier.add_module(name="dropout", module=Dropout(
+                p=classifier_dropout, inplace=True))
         self.classifier.add_module(
             name="fc",
-            module=LinearLayer(in_features=exp_channels, out_features=num_classes, bias=True)
+            module=LinearLayer(in_features=exp_channels,
+                               out_features=num_classes, bias=True)
         )
 
         # check model
@@ -108,7 +121,8 @@ class MobileViTv3(BaseEncoder):
 
     @classmethod
     def add_arguments(cls, parser: argparse.ArgumentParser):
-        group = parser.add_argument_group(title="".format(cls.__name__), description="".format(cls.__name__))
+        group = parser.add_argument_group(title="".format(
+            cls.__name__), description="".format(cls.__name__))
         group.add_argument('--model.classification.mit.mode', type=str, default=None,
                            choices=['xx_small', 'x_small', 'small'], help="MIT mode")
         group.add_argument('--model.classification.mit.attn-dropout', type=float, default=0.1,
@@ -212,11 +226,15 @@ class MobileViTv3(BaseEncoder):
                 patch_h=cfg.get("patch_h", 2),
                 patch_w=cfg.get("patch_w", 2),
                 dropout=getattr(opts, "model.classification.mit.dropout", 0.1),
-                ffn_dropout=getattr(opts, "model.classification.mit.ffn_dropout", 0.0),
-                attn_dropout=getattr(opts, "model.classification.mit.attn_dropout", 0.1),
+                ffn_dropout=getattr(
+                    opts, "model.classification.mit.ffn_dropout", 0.0),
+                attn_dropout=getattr(
+                    opts, "model.classification.mit.attn_dropout", 0.1),
                 head_dim=head_dim,
-                no_fusion=getattr(opts, "model.classification.mit.no_fuse_local_global_features", False),
-                conv_ksize=getattr(opts, "model.classification.mit.conv_kernel_size", 3)
+                no_fusion=getattr(
+                    opts, "model.classification.mit.no_fuse_local_global_features", False),
+                conv_ksize=getattr(
+                    opts, "model.classification.mit.conv_kernel_size", 3)
             )
         )
 

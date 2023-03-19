@@ -15,7 +15,7 @@ from cvnets.matcher_det import arguments_box_matcher
 from cvnets.misc.averaging_utils import arguments_ema, EMA
 from cvnets.misc.profiler import module_profile
 from cvnets.models import arguments_model, get_model
-from cvnets.models.detection.base_detection import DetectionPredTuple
+# from cvnets.models.detection.base_detection import DetectionPredTuple
 from cvnets.neural_augmentor import arguments_neural_augmentor
 from cvnets.text_encoders import arguments_text_encoder
 

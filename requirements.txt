@@ -1,7 +1,13 @@
+numpy
 psutil
 ujson
 scikit-learn>=0.19.2
 scikit-image
+pyyaml
+requests
+packaging
+psutil
+av
 
 # requirement for Pytorch, Torchvision, TorchText
 torch==1.12.0

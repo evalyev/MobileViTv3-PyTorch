@@ -89,12 +89,14 @@ def train_val_datasets(opts):
     name_dataset_task = dataset_name + SEPARATOR + dataset_category
     train_dataset = valid_dataset = None
     if name_dataset_task in DATASET_REGISTRY and not disable_val:
-        train_dataset = DATASET_REGISTRY[name_dataset_task](opts=opts, is_training=True)
+        train_dataset = DATASET_REGISTRY[name_dataset_task](
+            opts=opts, is_training=True)
         valid_dataset = DATASET_REGISTRY[name_dataset_task](
             opts=opts, is_training=False
         )
     elif name_dataset_task in DATASET_REGISTRY and disable_val:
-        train_dataset = DATASET_REGISTRY[name_dataset_task](opts=opts, is_training=True)
+        train_dataset = DATASET_REGISTRY[name_dataset_task](
+            opts=opts, is_training=True)
         valid_dataset = None
     else:
         supported_dataset_str(
@@ -106,7 +108,6 @@ def train_val_datasets(opts):
         print("{}".format(train_dataset))
         print("{}".format(valid_dataset))
     return train_dataset, valid_dataset
-
 
 
 def general_dataset_args(parser: argparse.ArgumentParser):
@@ -285,7 +286,8 @@ for task in SUPPORTED_TASKS:
             and not file.startswith(".")
             and (file.endswith(".py") or os.path.isdir(path))
         ):
-            dataset_name = file[: file.find(".py")] if file.endswith(".py") else file
-            module = importlib.import_module(
-                "data.datasets." + task + "." + dataset_name
-            )
+            dataset_name = file[: file.find(
+                ".py")] if file.endswith(".py") else file
+            # module = importlib.import_module(
+            #     "data.datasets." + task + "." + dataset_name
+            # )
