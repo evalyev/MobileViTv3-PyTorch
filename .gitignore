@@ -20,7 +20,7 @@ coco_eval_results/
 *.so
 model_zoo
 model_zoo/*
-models*
+models
 
 cvnets.egg-info
 cvnets.egg-info/*
