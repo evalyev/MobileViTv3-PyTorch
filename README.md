@@ -30,7 +30,8 @@ device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 
 model_path = '../models/MobileViTv3-v1/results_classification/mobilevitv3_S_e300_7930/checkpoint_ema_best.pt'
 model = torch.load(''model_structure.pt'')
-model.load_state_dict(model_path, map_location=device)
+model_weights = torch.load(model_path, map_location=device)
+model.load_state_dict(model_weights)
 
 output = model(image)
 ```
